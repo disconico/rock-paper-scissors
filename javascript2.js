@@ -10,7 +10,7 @@ function computerChoice() {
 
 //Get input from player
 function playerChoice() {
-    let input = prompt("Type 'Rock', 'Paper', or 'Scissors'").toLowerCase();
+    let input = window.prompt("Type 'Rock', 'Paper', or 'Scissors'").toLowerCase();
     if (input.includes("rock") || input.includes("paper") || input.includes("scissors")) { ;
     } else {
         alert ("Please chose wisely");
@@ -19,6 +19,31 @@ function playerChoice() {
     return input
 }    
 
+//Define round rules 
+function playRound(playerSelection, computerSelection){
+    if (playerSelection === computerSelection) {
+        return ("tie");
+    } else if (playerSelection === "rock" && computerSelection === "scissors") {
+        playerScore++;
+        return ("player");
+    } else if (playerSelection === "paper" && computerSelection === "rock") {
+        playerScore++;
+        return ("player");
+    } else if (playerSelection === "scissors" && computerSelection === "paper") {
+        playerScore++;
+        return ("player");
+    } else if (computerSelection === "rock" && playerSelection === "scissors") {
+        computerScore++;
+        return ("computer");
+    } else if (computerSelection === "paper" && playerSelection === "rock") {
+        computerScore++;
+        return ("computer");
+    } else if (computerSelection === "scissors" && playerSelection === "paper") {
+        computerScore++;
+        return ("computer");
+    }
+}
+
 //Define parameters
 let playerSelection = playerChoice();
 let computerSelection = computerChoice();
@@ -26,55 +51,30 @@ let computerSelection = computerChoice();
 console.log(playerSelection);
 console.log(computerSelection);
 
-//Define round rules 
-function playRound(){
-    if (playerSelection === computerSelection) {
-        return ("tie");
-    } else if (playerSelection === "rock" && computerSelection === "scissors") {
-        return ("player");
-    } else if (playerSelection === "paper" && computerSelection === "rock") {
-        return ("player");
-    } else if (playerSelection === "scissors" && computerSelection === "paper") {
-        return ("player");
-    } else if (computerSelection === "rock" && playerSelection === "scissors") {
-        return ("computer");
-    } else if (computerSelection === "paper" && playerSelection === "rock") {
-        return ("computer");
-    } else if (computerSelection === "scissors" && playerSelection === "paper") {
-        return ("computer");
-    }
-}
-
-//Announce round result
-let roundResult = playRound();
-if (roundResult === "tie") {
-    console.log("It's a tie, no one scores!") ;
-} else if (roundResult === "player") {
-    console.log(`You won, ${playerSelection} beats ${computerSelection} !`);
-} else if (roundResult === "computer") {
-    console.log(`You lost, ${computerSelection} beats ${playerSelection} !`);  
-}
-
 //Scores
 let playerScore = 0;
 let computerScore = 0;
 
-//Scoreboard update
-if (roundResult === "tie") {
-} else if (roundResult === "player") {
-    playerScore++;
-} else if (roundResult === "computer") {
-    computerScore++;  
+//Game rules
+function game() {
+
+    let roundResult = playRound(playerSelection, computerSelection);
+
+    if (roundResult === "tie") {
+        console.log("It's a tie, no one scores!") ;
+    } else if (roundResult === "player") {
+        console.log(`You won, ${playerSelection} beats ${computerSelection} !`) ;
+    } else if (roundResult === "computer") {
+        console.log(`You lost, ${computerSelection} beats ${playerSelection} !`) ;  
+    };
 }
+
+//Launch the game
+game();
+
+
 
 console.log(playerScore);
 console.log(computerScore);
-
-
-//Define game rules
-while ((playerScore < 5) || (computerScore < 5)) {
-    playRound();
-    break;
-}
 
 
