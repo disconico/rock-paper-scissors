@@ -54,7 +54,7 @@ function countScore (playerSelection, computerSelection){
         break;    
     }
 
-    scores.textContent = `Your score => ${playerScore} - ${computerScore} <= Computer score`;
+    scores.textContent = `Your score | ${playerScore} - ${computerScore} | Computer score`;
     return [playerScore, computerScore];          
 }
 
