@@ -1,21 +1,32 @@
 // Rock Paper Scissors game
 
 //Assign all elements
+const buttons = document.querySelectorAll('.button');
+const resultText = document.querySelector('.round-result-text');
+const scores = document.querySelector('.game-scores');
+const buttonPlayAgain = document.querySelector('.play-again');
+const rounds = document.querySelector('.round-number-text')
+
 let playerScore = 0;
 let computerScore = 0;
-const buttons = Array.from(document.querySelectorAll('button'));
-const result = document.querySelector('.round-result-text');
-const scores = document.querySelector('.game-scores');
- 
-const buttonPlayAgain = document.querySelector('.play-again');
+let round = 0;
 
-//Get player choice
+//Launch game when input from user
 buttons.forEach(button => button.addEventListener('click', function(e) {
-    playRound(e.target.id, computerChoice()) ;
-    scores.textContent = `Your score => ${playerScore} - ${computerScore} <= Computer score`
-    })
+    playerSelection = e.target.id ;
+    countRound();
+    countScore(playerSelection, computerChoice());
+    endGame();
+    resetGame();
+})
 );    
 
+//Round number
+function countRound () {
+    round += 1;
+    rounds.textContent = `Round # ${round}`;
+    return round;
+}
 
 //Create a random outcome for the computer - Rock, Paper, or Scissors
 function computerChoice() {
@@ -23,59 +34,51 @@ function computerChoice() {
     return choices[Math.floor(Math.random()*choices.length)].toLowerCase();
 }
 
-//Announce results
-
-
-
-//Define round rules 
-function playRound(playerSelection, computerSelection){
-    if (playerSelection === computerSelection) {
-        result.textContent = `It's a tie, no one wins!`;
-    } else if (playerSelection === "rock" && computerSelection === "scissors") {
-        playerScore++;
-        result.textContent =  `You won, ${playerSelection} beats ${computerSelection} !` ;
-    } else if (playerSelection === "paper" && computerSelection === "rock") {
-        playerScore++;
-        result.textContent =  `You won, ${playerSelection} beats ${computerSelection} !` ;
-    } else if (playerSelection === "scissors" && computerSelection === "paper") {
-        playerScore++;
-        result.textContent =  `You won, ${playerSelection} beats ${computerSelection} !` ;
-    } else if (computerSelection === "rock" && playerSelection === "scissors") {
-        computerScore++;
-        result.textContent =  `You lost, ${computerSelection} beats ${playerSelection} !` ;  
-    } else if (computerSelection === "paper" && playerSelection === "rock") {
-        computerScore++;
-        result.textContent =  `You lost, ${computerSelection} beats ${playerSelection} !` ;  
-    } else if (computerSelection === "scissors" && playerSelection === "paper") {
-        computerScore++;
-        result.textContent =  `You lost, ${computerSelection} beats ${playerSelection} !` ;  
+//Define scoring method
+function countScore (playerSelection, computerSelection){
+    switch (true) {
+        case (playerSelection === computerSelection) :
+            resultText.textContent = `It's a tie, no one wins!`;
+            break;
+        case (playerSelection === "rock" && computerSelection === "scissors"):
+        case (playerSelection === "paper" && computerSelection === "rock"):
+        case (playerSelection === "scissors" && computerSelection === "paper"): 
+            playerScore++;
+            resultText.textContent =  `You won, ${playerSelection} beats ${computerSelection} !`;
+            break;
+        case (computerSelection === "rock" && playerSelection === "scissors"):
+        case (computerSelection === "paper" && playerSelection === "rock"):
+        case (computerSelection === "scissors" && playerSelection === "paper"):
+            computerScore++;
+            resultText.textContent =  `You lost, ${computerSelection} beats ${playerSelection} !` ;
+        break;    
     }
+
+    scores.textContent = `Your score => ${playerScore} - ${computerScore} <= Computer score`;
+    return [playerScore, computerScore];          
 }
 
 //End the game
-//When a player reach 5 points :
-function endGame (playerScore, computerScore) {
-    if (computerScore === 5 || playerScore === 5) {
-//Make the game stop (you cannot be able to click again on a selection)
+function endGame () {
+    if (computerScore === 5) { 
+        scores.textContent = `GAME OVER! It seems @disconico made me too smart!`;    
         buttons.forEach((button) => {
             button.setAttribute('disabled','');
-            button.classList.add('disabled-button');
+        });
+    } else if (playerScore === 5) {
+        scores.textContent = `YOU WON! You are smarter than the computer!`;    
+        buttons.forEach((button) => {
+            button.setAttribute('disabled','');
         })
-//Announce the winner (display text / replace existing text)
-        scores.textContent = `GAME OVER !`    
-
+    } else {
     }
-}
-
-
-//Make the play again button visible
+}            
 
 //Reset game
 function resetGame() {
-    buttonPlayAgain.addEventListener('click', () => {
-      window.location.reload();
-    });
+    if (computerScore === 5 || playerScore === 5){
+        buttonPlayAgain.addEventListener('click', () => {
+        window.location.reload();
+        });
+    }    
   }
-
-endGame();
-resetGame();
