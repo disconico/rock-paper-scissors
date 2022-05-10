@@ -1,26 +1,21 @@
 // Rock Paper Scissors game
 
+//Assign all elements
+let playerScore = 0;
+let computerScore = 0;
+const buttons = Array.from(document.querySelectorAll('button'));
+
+//Get player choice
+buttons.forEach(button => button.addEventListener('click', function(e) {
+    playRound(e.target.id, computerChoice()) ;
+    })
+);    
+
 //Create a random outcome for the computer - Rock, Paper, or Scissors
 function computerChoice() {
     let choices = ['Rock', 'Paper', 'Scissors'];
     return choices[Math.floor(Math.random()*choices.length)].toLowerCase();
 }
-
-//Get input from player
-function playerChoice() {
-    let input = prompt("Type 'Rock', 'Paper', or 'Scissors'").toLowerCase();
-    if (input.includes("rock") || input.includes("paper") || input.includes("scissors")) { 
-        return input;
-    } else {
-        alert ("Please chose wisely");
-        input = prompt("Type 'Rock', 'Paper', or 'Scissors'").toLowerCase();
-        return input
-    }
-} 
-
-//Scores
-let playerScore = 0;
-let computerScore = 0;
 
 //Define round rules 
 function playRound(playerSelection, computerSelection){
@@ -53,19 +48,3 @@ function playRound(playerSelection, computerSelection){
         return ("computer");
     }
 }
-
-//Define game function
-function game () {
-    while (playerScore < 5 && computerScore < 5) {
-        playRound(playerChoice(), computerChoice());
-        console.log(`The score is ${playerScore} - ${computerScore}`);
-    } 
-    if (playerScore === 5) {
-        console.log("Congrats ! you won !");
-    } else if (computerScore === 5) {
-        console.log("Damn! Try again")
-    }   
-}
-
-//Play the game
-game();
