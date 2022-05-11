@@ -4,12 +4,14 @@
 const start = new Audio('./music/start.mp3');
 const gameOver = new Audio('./music/game_over.mp3');
 const victory = new Audio('./music/victory.mp3');
+const click = new Audio('./music/click.mp3');
 
 //Assign all elements
 const startButton = document.querySelector('.start-button');
 const buttons = document.querySelectorAll('.game-button');
 const resultText = document.querySelector('.round-result-text');
 const scores = document.querySelector('.game-scores');
+const endText = document.querySelector('.game-end-text');
 const buttonPlayAgain = document.querySelector('.play-again');
 const rounds = document.querySelector('.round-number-text');
 const imageComputer = document.querySelector('.weapon-computer');
@@ -31,6 +33,8 @@ startButton.addEventListener('click', () => {
 //Launch game when input from user
 buttons.forEach(button => button.addEventListener('click', function(e) {
     playerSelection = e.target.id ;
+    click.currentTime = 0;
+    click.play();
     countRound();
     countScore(playerSelection, computerChoice());
     pushPlayerImage(playerSelection);
@@ -92,15 +96,17 @@ function countScore (playerSelection, computerSelection){
 //End the game
 function endGame () {
     if (computerScore === 5) { 
-        scores.textContent = `GAME OVER! It seems @disconico made me too smart!`;    
+        endText.textContent = `GAME OVER!`;
         gameOver.play();
+        endText.classList.add('lose');  
         document.getElementById('endgame').style.setProperty('visibility', 'visible');
         buttons.forEach((button) => {
             button.setAttribute('disabled','');
         })
         
     } else if (playerScore === 5) {
-        scores.textContent = `YOU WON! You are smarter than the computer!`;    
+        endText.textContent = `YOU WON!`;
+        endText.classList.add('win');    
         victory.play();
         document.getElementById('endgame').style.setProperty('visibility', 'visible');
         buttons.forEach((button) => {
