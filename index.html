@@ -9,41 +9,44 @@
     <script type="text/javascript" src="./javascript.js" defer></script>
 </head>
 <body>
-
-    <p>Chose between 'Rock', 'Paper' and 'Scissors' to play against the computer !</p>
-
-    <div class="images">
-        <div class="images player"></div>
-            <img class="weapon-player" src="">
-        <div class="images computer"></div>
-            <img class="weapon-computer" src="">
-    </div>    
-
-    <div class="buttons">
-        <button class="button" id="rock">Rock</button>
-        <button class="button" id="paper">Paper</button>
-        <button class="button" id="scissors">Scissors</button>
+    <div id="start" class="start">
+        <div class="container">
+            <button class="start-button">START THE GAME</button>
+        </div>
     </div>
-
-    <div class="round-number">
-        <p class="round-number-text">Let's get started!</p>
+    <div id="game" class="game">
+        <div class="container">
+            <div class="round-number">
+                <p class="round-number-text">Let's get started!</p>
+            </div>
+            <div class="round-result">
+                <p class="round-result-text"></p>
+            </div>
+            <div>
+                <p class="game-scores"></p>
+                <p class="game-end-text"></p>
+            </div>
+            <div class="images">
+                <div class="images player">
+                    <img class="weapon-player" src="">
+                </div>
+                <div class="images computer">
+                    <img class="weapon-computer" src="">
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="game-button" id="rock">Rock</button>
+                <button class="game-button" id="paper">Paper</button>
+                <button class="game-button" id="scissors">Scissors</button>
+            </div>
+        </div>
     </div>
-
-    <div class="round-result">
-        <p class="round-result-text"></p>
-    </div>   
-
-    <div>
-        <p class="game-scores"></p>
-        <p class="game-end-text"></p>
-    </div>    
-
-
-
-    <div class="endgame">
-        <button class="play-again">Play again!</button>
     </div>
-
+    <div id="endgame">
+        <div class="container">
+            <button class="play-again">Play again!</button>
+        </div>
+    </div>
 </body>
 
 

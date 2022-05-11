@@ -1,12 +1,13 @@
 // Rock Paper Scissors game
 
 //Add music to the game
-const audio = new Audio('./music/background_music.mp3');
+const start = new Audio('./music/start.mp3');
 const gameOver = new Audio('./music/game_over.mp3');
 const victory = new Audio('./music/victory.mp3');
 
 //Assign all elements
-const buttons = document.querySelectorAll('.button');
+const startButton = document.querySelector('.start-button');
+const buttons = document.querySelectorAll('.game-button');
 const resultText = document.querySelector('.round-result-text');
 const scores = document.querySelector('.game-scores');
 const buttonPlayAgain = document.querySelector('.play-again');
@@ -19,10 +20,17 @@ let computerScore = 0;
 let choice = '';
 let round = 0;
 
+//Skip intro page
+startButton.addEventListener('click', () => {
+    start.play();
+    document.getElementById('start').style.setProperty('visibility', 'hidden');
+    document.getElementById('game').style.setProperty('visibility', 'visible');
+});
+
+
 //Launch game when input from user
 buttons.forEach(button => button.addEventListener('click', function(e) {
     playerSelection = e.target.id ;
-    // audio.play();
     countRound();
     countScore(playerSelection, computerChoice());
     pushPlayerImage(playerSelection);
@@ -86,17 +94,19 @@ function endGame () {
     if (computerScore === 5) { 
         scores.textContent = `GAME OVER! It seems @disconico made me too smart!`;    
         gameOver.play();
-        buttons.forEach((button) => {
-            button.setAttribute('disabled','');
-        });
-    } else if (playerScore === 5) {
-        scores.textContent = `YOU WON! You are smarter than the computer!`;    
-        victory.play();
+        document.getElementById('endgame').style.setProperty('visibility', 'visible');
         buttons.forEach((button) => {
             button.setAttribute('disabled','');
         })
-    } else {
-    }
+        
+    } else if (playerScore === 5) {
+        scores.textContent = `YOU WON! You are smarter than the computer!`;    
+        victory.play();
+        document.getElementById('endgame').style.setProperty('visibility', 'visible');
+        buttons.forEach((button) => {
+            button.setAttribute('disabled','');
+        })
+    } 
 }            
 
 //Reset game
