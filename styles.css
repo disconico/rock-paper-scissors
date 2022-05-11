@@ -18,7 +18,7 @@ body {
 }
 
 img {
-    max-width: 10em;
+    max-width: 8em;
     max-height: auto;
     opacity: 80%;
 }
@@ -72,7 +72,7 @@ justify-content: center;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 0 30px 0 30px;
+    margin: 0 40px 0 40px;
 }
 
 .images .weapon-player,
@@ -125,9 +125,10 @@ background-color:darkolivegreen ;
 
 .game-end-text {
     flex: 1;
-    font-size: 30px;
     font-weight: bolder;
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .win {
